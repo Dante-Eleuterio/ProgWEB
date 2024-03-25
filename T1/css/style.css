@@ -1,0 +1,47 @@
+html{
+    background-color: aquamarine;
+}
+a:link{
+    font-size: 300%;
+    color: black;
+}
+a:visited {
+    color: black;
+    background-color: transparent;
+  }
+  
+a:hover {
+    color: purple;
+    background-color: transparent;
+}
+  img{
+    width: 15%;
+  }
+  img:hover{
+    width: 400px;
+    height: 600px;
+  }
+aside {
+    width: 10%;
+    padding-left: 0.5rem;
+    margin-left: 0.5rem;
+    float: left;
+    box-shadow: inset 5px 0 5px -5px #29627e;
+    font-style: italic;
+    color: #29627e;
+    background-color: azure;
+  }
+
+  aside > img{
+    width: 80%;
+  }
+  aside > p{
+    font-size: 80%;
+  }
+  aside > a:link{
+    font-size: 100%;
+  }
+  aside > img:hover{
+    width: 80%;
+    height: 80%;
+  }
