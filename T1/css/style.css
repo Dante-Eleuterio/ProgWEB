@@ -1,5 +1,5 @@
 html{
-    background-color: aquamarine;
+    background-color: lightsteelblue;
 }
 a:link{
     font-size: 300%;
@@ -29,7 +29,7 @@ aside {
     box-shadow: inset 5px 0 5px -5px #29627e;
     font-style: italic;
     color: #29627e;
-    background-color: azure;
+    background-color: rgba(170, 129, 170, 0.863);
   }
 
   aside > img{
