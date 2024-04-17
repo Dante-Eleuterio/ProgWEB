@@ -7,54 +7,44 @@ require 'models/motorista_model.rb'
 require 'models/multa_model.rb'
 
 def inicia_carros
-    if !ActiveRecord::Base.connection.table_exists?(:carros)         
         ActiveRecord::Base.connection.create_table :carros do |t|
             t.string :placa 
             t.string :modelo
             t.string :ano
-            t.references :motorista
+            t.references :motorista, foreign_key: true
         end
-    end
 end
 
 def inicia_carros_multas
-    if !ActiveRecord::Base.connection.table_exists?(:carros_multas)         
         ActiveRecord::Base.connection.create_table :carros_multas, id: false do |t|
-            t.references :carro
-            t.references :multa
+            t.references :carro, foreign_key: true
+            t.references :multa, foreign_key: true
         end
-    end
 end
 
 def inicia_carteiras
-    if !ActiveRecord::Base.connection.table_exists?(:carteiras)         
         ActiveRecord::Base.connection.create_table :carteiras do |t|
             t.string :numero
             t.string :categoria
             t.date :validade
-            t.references :motorista
+            t.references :motorista, foreign_key: true
         end
-    end
 end
 
 def inicia_motoristas
-    if !ActiveRecord::Base.connection.table_exists?(:motoristas)         
         ActiveRecord::Base.connection.create_table :motoristas do |t|
             t.string :nome
             t.integer :idade
             t.string :sexo
             t.string :cpf
         end
-    end
 end
 
 def inicia_multas
-    if !ActiveRecord::Base.connection.table_exists?(:multas)         
         ActiveRecord::Base.connection.create_table :multas do |t|
             t.string :descricao
             t.float :valor
         end
-    end
 end
 
 def popula_motoristas
@@ -63,8 +53,6 @@ def popula_motoristas
         {:nome=> "Maria", :idade => 25, :sexo => "Feminino", :cpf => "987.654.321-21"},
         {:nome=> "José", :idade => 40, :sexo => "Masculino", :cpf => "456.789.123-32"}
     ]
-
-    puts lista_motoristas
 
     lista_motoristas.each do |m|
         motorista = Motorista.new()
