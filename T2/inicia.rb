@@ -15,7 +15,7 @@ def inicia_carros
         end
 end
 
-def inicia_carros_multas
+def inicia_carros_multa
         ActiveRecord::Base.connection.create_table :carros_multa, id: false do |t|
             t.references :carro, foreign_key: true
             t.references :multa, foreign_key: true
@@ -76,14 +76,25 @@ def popula_carros
     id=1
     lista_carros.each do |c|
         car = Carro.new ()
-        car.placa    = c[:placa]
+        car.nome    = c[:nome]
         car.modelo  = c[:modelo]
         car.ano     = c[:ano]
-        mot = Motorista.find_by_id(id)
-        car.motorista = mot
-        id+=1
         car.save
-    end        
+    end
+
+    mot = Motorista.find_by_id(1)
+    c1 = Carro.find_by_id(1)    
+    c2 = Carro.find_by_id(2)
+    c1.motorista = mot
+    c2.motorista = mot
+
+    mot = Motorista.find_by_id(2)
+    c1= Carro.find_by_id(3)
+    c.motorista = mot
+
+    mot = Motorista.find_by_id(3)
+    c1= Carro.find_by_id(4)
+    c.motorista = mot
 end
 
 def popula_carteiras
@@ -154,7 +165,7 @@ def inicia_ambiente
     inicia_carteiras
     inicia_motoristas
     inicia_multas
-    #inicia_carros_multas
+    inicia_carros_multas
     popula_tudo
 
 end

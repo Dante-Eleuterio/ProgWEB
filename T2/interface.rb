@@ -14,140 +14,82 @@ end
 
 def insere_in (tabela, valores)
     case tabela.upcase
-    when "MATERIA", "MATERIAS"
-        materia = Materia.new()
+    when "CARRO", "CARROS"
+        carro = Carro.new()
 
-        valores.each do |m|
-            if m.include?("cod=")
-                value = m.split(/=/, 2)[1] # Pega o valor depois do =
-                materia.cod = value
+        valores.each do |c|
+            if c.include?("placa=")
+                value = m.split(/=/, 2)[1] 
+                carro.placa = value
             end
-            if m.include?("nome=")
-                value = m.split(/=/, 2)[1] # Pega o valor depois do =
-                materia.nome = value
+            if c.include?("modelo=")
+                value = m.split(/=/, 2)[1] 
+                carro.modelo = value
+            end
+            if c.include?("ano=")
+                value = m.split(/=/, 2)[1] 
+                carro.ano = value
             end
         end
 
-        materia.save
+        carro.save
 
-    when "ALUNO", "ALUNOS"
-        aluno = Aluno.new()
+    when "CARTEIRA", "CARTEIRAS"
+        carteira = Carteira.new()
+
+        valores.each do |c|
+            if c.include?("numero=")
+                value = m.split(/=/, 2)[1] 
+                carteira.numero = value
+            end
+            if c.include?("categoria=")
+                value = m.split(/=/, 2)[1] 
+                carteira.categoria = value
+            end
+            if c.include?("validade=")
+                value = m.split(/=/, 2)[1] 
+                carteira.validade = value
+            end
+        end
+        carteira.save
+
+    when "MOTORISTA", "MOTORISTAS"
+        motorista = Motorista.new()
 
         valores.each do |m|
+            if m.include?("nome=")
+                value = m.split(/=/, 2)[1] 
+                motorista.nome = value
+            end
+            if m.include?("idade=")
+                value = m.split(/=/, 2)[1] 
+                motorista.idade = value
+            end
+            if m.include?("sexo=")
+                value = m.split(/=/, 2)[1] 
+                motorista.sexo = value
+            end
             if m.include?("cpf=")
-                value = m.split(/=/, 2)[1] # Pega o valor depois do =
-                aluno.cpf = value
-            end
-            if m.include?("nome=")
-                value = m.split(/=/, 2)[1] # Pega o valor depois do =
-                aluno.nome = value
+                value = m.split(/=/, 2)[1] 
+                motorista.cpf = value
             end
         end
-        aluno.save
-
-    when "ESTADO", "ESTADOS"
-        estado = Estado.new()
+        motorista.save
+    when "MULTA", "MULTAS"
+        multa = Animal.new()
 
         valores.each do |m|
-            if m.include?("sigla=")
-                value = m.split(/=/, 2)[1] # Pega o valor depois do =
-                estado.sigla = value
+            if m.include?("descricao=")
+                value = m.split(/=/, 2)[1] 
+                multa.descricao = value
             end
-            if m.include?("nome=")
-                value = m.split(/=/, 2)[1] # Pega o valor depois do =
-                estado.nome = value
-            end
-        end
-        estado.save
-    when "ANIMAL", "ANIMALS", "ANIMAIS"
-        animal = Animal.new()
-
-        valores.each do |m|
-            if m.include?("nome=")
-                value = m.split(/=/, 2)[1] # Pega o valor depois do =
-                animal.nome = value
-            end
-            if m.include?("especie=")
-                value = m.split(/=/, 2)[1] # Pega o valor depois do =
-                animal.especie = value
-            end
-            if m.include?("id_aluno=")
-                value = m.split(/=/, 2)[1] # Pega o valor depois do =
-                aluno = Aluno.find_by_id(value.to_i)
-                animal.aluno = aluno
+            if m.include?("valor=")
+                value = m.split(/=/, 2)[1] 
+                multa.valor = value
             end
         end
 
-        animal.save
-    else
-        puts "Não identifiquei a tabela #{tabela}"
-    end
-end
-
-def altera_from (tabela, valor)
-    case tabela.upcase
-    when "MATERIA", "MATERIAS"
-        if valor.include?("id=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            materia = Materia.find_by_id(value.to_i)
-        end
-        if valor.include?("cod=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            materia = Materia.find_by_cod(value)
-        end
-        if valor.include?("nome=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            materia = Materia.find_by_nome(value)
-        end
-        if materia != nil
-            materia.delete
-        end 
-    when "ALUNO", "ALUNOS"
-        if valor.include?("id=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            aluno = Aluno.find_by_id(value.to_i)
-        end
-        if valor.include?("cod=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            aluno = Aluno.find_by_cpf(value)
-        end
-        if valor.include?("nome=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            aluno = Aluno.find_by_nome(value)
-        end
-        aluno.delete
-
-
-    when "ESTADO", "ESTADOS"
-        if valor.include?("id=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            estado = Estado.find_by_id(value.to_i)
-        end
-        if valor.include?("cod=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            estado = Estado.find_by_sigla(value)
-        end
-        if valor.include?("nome=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            estado = Estado.find_by_nome(value)
-        end
-        estado.delete
-
-    when "ANIMAL", "ANIMALS", "ANIMAIS"
-        if valor.include?("id=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            animal = Animal.find_by_id(value.to_i)
-        end
-        if valor.include?("nome=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            animal = Animal.find_by_nome(value)
-        end
-        if valor.include?("especie=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            animal = Animal.find_by_especie(value)
-        end
-        
-        animal.delete
+        multa.save
     else
         puts "Não identifiquei a tabela #{tabela}"
     end
@@ -155,68 +97,88 @@ end
 
 def exclui_from (tabela, valor)
     case tabela.upcase
-    when "MATERIA", "MATERIAS"
+    when "CARRO", "CARROS"
         if valor.include?("id=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            materia = Materia.find_by_id(value.to_i)
+            value = valor.split(/=/, 2)[1] 
+            carro = Carro.find_by_id(value.to_i)
         end
-        if valor.include?("cod=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            materia = Materia.find_by_cod(value)
+        if valor.include?("placa=")
+            value = valor.split(/=/, 2)[1] 
+            carro = Carro.find_by_placa(value.to_i)
         end
-        if valor.include?("nome=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            materia = Materia.find_by_nome(value)
+        if valor.include?("modelo=")
+            value = valor.split(/=/, 2)[1] 
+            carro = Carro.find_by_modelo(value)
         end
-        if materia != nil
-            materia.delete
+        if valor.include?("ano=")
+            value = valor.split(/=/, 2)[1] 
+            carro = Carro.find_by_ano(value)
+        end
+        if carro != nil
+            carro.delete
         end 
-    when "ALUNO", "ALUNOS"
+    when "CARTEIRA", "CARTEIRAS"
         if valor.include?("id=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            aluno = Aluno.find_by_id(value.to_i)
+            value = valor.split(/=/, 2)[1] 
+            carteira = Carteira.find_by_id(value.to_i)
         end
-        if valor.include?("cod=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            aluno = Aluno.find_by_cpf(value)
+        if valor.include?("numero=")
+            value = valor.split(/=/, 2)[1] 
+            carteira = Carteira.find_by_numero(value)
+        end
+        if valor.include?("categoria=")
+            value = valor.split(/=/, 2)[1] 
+            carteira = Carteira.find_by_categoria(value)
+        end
+        if valor.include?("validade=")
+            value = valor.split(/=/, 2)[1] 
+            carteira = Carteira.find_by_validade(value)
+        end
+        if carteira != nil
+            carteira.delete
+        end
+
+    when "MOTORISTA", "MOTORISTAS"
+        if valor.include?("id=")
+            value = valor.split(/=/, 2)[1] 
+            motorista = Motorista.find_by_id(value.to_i)
         end
         if valor.include?("nome=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            aluno = Aluno.find_by_nome(value)
+            value = valor.split(/=/, 2)[1] 
+            motorista = Motorista.find_by_nome(value)
         end
-        aluno.delete
+        if valor.include?("idade=")
+            value = valor.split(/=/, 2)[1] 
+            motorista = Motorista.find_by_idade(value)
+        end
+        if valor.include?("sexo=")
+            value = valor.split(/=/, 2)[1] 
+            motorista = Motorista.find_by_sexo(value)
+        end
+        if valor.include?("cpf=")
+            value = valor.split(/=/, 2)[1] 
+            motorista = Motorista.find_by_cpf(value)
+        end
+        if motorista != nil
+            motorista.delete
+        end
 
-
-    when "ESTADO", "ESTADOS"
+    when "MULTA", "MULTAS"
         if valor.include?("id=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            estado = Estado.find_by_id(value.to_i)
+            value = valor.split(/=/, 2)[1] 
+            multa = Animal.find_by_id(value.to_i)
         end
-        if valor.include?("cod=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            estado = Estado.find_by_sigla(value)
+        if valor.include?("descricao=")
+            value = valor.split(/=/, 2)[1] 
+            multa = Animal.find_by_descricao(value)
         end
-        if valor.include?("nome=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            estado = Estado.find_by_nome(value)
+        if valor.include?("valor=")
+            value = valor.split(/=/, 2)[1] 
+            multa = Animal.find_by_valor(value)
         end
-        estado.delete
-
-    when "ANIMAL", "ANIMALS", "ANIMAIS"
-        if valor.include?("id=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            animal = Animal.find_by_id(value.to_i)
+        if multa != nil
+            multa.delete
         end
-        if valor.include?("nome=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            animal = Animal.find_by_nome(value)
-        end
-        if valor.include?("especie=")
-            value = valor.split(/=/, 2)[1] # Pega o valor depois do =
-            animal = Animal.find_by_especie(value)
-        end
-        
-        animal.delete
     else
         puts "Não identifiquei a tabela #{tabela}"
     end
@@ -224,29 +186,25 @@ end
 
 def  lista_from (tabela)
     case tabela.upcase
-    when "MATERIA", "MATERIAS"
-        materias = Materia.all
-        materias.each do |m|
-            puts "..................id:#{m.id} Cod: #{m.cod}, Nome: #{m.nome}"
+    when "CARRO", "CARROS"
+        carros = Carro.all
+        carros.each do |c|
+            puts "..................id:#{c.id} Placa: #{c.placa}, Modelo: #{c.modelo}, Ano: #{c.ano}, MotoristaID: #{c.motorista.id}"
         end
-    when "ALUNO", "ALUNOS"
-        alunos = Aluno.all
-        alunos.each do |a|
-            puts "..................id:#{a.id} Cpf: #{a.cpf}, Nome: #{a.nome}"
+    when "CARTEIRA", "CARTEIRAS"
+        carteiras = Carteira.all
+        carteiras.each do |c|
+            puts "..................id:#{c.id} Numero: #{c.numero}, Categoria: #{c.categoria}, Validade: #{c.validade}, MotoristaID: #{c.motorista.id}"
         end
-    when "ESTADO", "ESTADOS"
-        estados = Estado.all
-        estados.each do |e|
-            puts "..................id:#{e.id} Sigla: #{e.sigla}, Nome: #{e.nome}"
+    when "MOTORISTA", "MOTORISTAS"
+        motoristas = Motorista.all
+        motoristas.each do |m|
+            puts "..................id:#{m.id}, Nome: #{m.nome}, Idade: #{m.idade}, Sexo: #{m.sexo}, CPF: #{m.sexo}"
         end
-    when "ANIMAL", "ANIMALS", "ANIMAIS"
-        animals = Animal.all
-        animals.each do |a|
-            if a.aluno_id
-                puts "..................id:#{a.id} Nome: #{a.nome}, Especie: #{a.especie}, Aluno: #{a.aluno_id} - #{Aluno.find_by_id(a.aluno_id).nome}"
-            else
-                puts "..................id:#{a.id} Nome: #{a.nome}, Especie: #{a.especie}, Aluno: Sem dono"
-            end
+    when "MULTA", "MULTAS"
+        multas = Multa.all
+        multas.each do |m|
+            puts "..................id:#{m.id} Descricao #{m.descricao}, Valor: #{m.valor}"
         end
     else
         puts "Não identifiquei a tabela #{tabela}"
