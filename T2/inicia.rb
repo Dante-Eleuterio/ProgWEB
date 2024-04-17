@@ -9,10 +9,10 @@ require 'models/multa_model.rb'
 def inicia_carros
     if !ActiveRecord::Base.connection.table_exists?(:carro)         
         ActiveRecord::Base.connection.create_table :carro do |t|
-            t.string :placa, 
+            t.string :placa 
             t.string :modelo
             t.string :ano
-            t.references : motorista
+            t.references :motorista
         end
 
         lista_carros = [
@@ -42,7 +42,7 @@ def inicia_carteiras
             t.string :numero
             t.string :categoria
             t.date :validade
-            t.references : motorista
+            t.references :motorista
         end
 
         lista_carteiras = [
@@ -100,7 +100,7 @@ def inicia_multas
         lista_multas = [
             {:descricao=> "Excesso de velocidade", :valor => 150.0},
             {:descricao=> "Estacionamento irregular", :valor => 100.0},
-            {:descricao=> "Ultrapassagem em local proibido", :valor = 200.0}
+            {:descricao=> "Ultrapassagem em local proibido", :valor => 200.0}
         ]
     
         lista_multas.each do |m|
