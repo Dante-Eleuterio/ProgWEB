@@ -1,4 +1,3 @@
-$:.push './'
 require 'rubygems'
 require 'active_record'
 require 'models/carro_model.rb'
