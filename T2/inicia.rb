@@ -64,8 +64,10 @@ def popula_motoristas
         {:nome=> "José", :idade => 40, :sexo => "Masculino", :cpf => "456.789.123-32"}
     ]
 
+    puts lista_motoristas
+
     lista_motoristas.each do |m|
-        motorista = Motorista.new ()
+        motorista = Motorista.new()
         motorista.nome      = m[:nome]
         motorista.idade     = m[:idade]
         motorista.sexo      = m[:sexo]
