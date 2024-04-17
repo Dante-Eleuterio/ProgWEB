@@ -1,10 +1,10 @@
 $:.push './'
 require 'rubygems'
 require 'active_record'
-require 'models/carro_model.rb'
-require 'models/carteira_model.rb'
-require 'models/motorista_model.rb'
-require 'models/multa_model.rb'
+require 'models/carro.rb'
+require 'models/carteira.rb'
+require 'models/motorista.rb'
+require 'models/multa.rb'
 
 def inicia_carros
         ActiveRecord::Base.connection.create_table :carros do |t|
