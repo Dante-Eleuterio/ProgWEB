@@ -73,10 +73,9 @@ def popula_carros
         {:placa=> "HIJ7K89", :modelo => "Chevrolet Onix", :ano => "2019"},
     ]
 
-    id=1
     lista_carros.each do |c|
         car = Carro.new ()
-        car.nome    = c[:nome]
+        car.placa    = c[:placa]
         car.modelo  = c[:modelo]
         car.ano     = c[:ano]
         car.save
@@ -87,16 +86,20 @@ def popula_carros
     c2 = Carro.find_by_id(2)
     c1.motorista = mot
     c2.motorista = mot
+    c1.save
+    c2.save
 
     mot = Motorista.find_by_id(2)
-    c1= Carro.find_by_id(3)
-    c.motorista = mot
+    c3= Carro.find_by_id(3)
+    c3.motorista = mot
+    c3.save
 
     mot = Motorista.find_by_id(3)
-    c1= Carro.find_by_id(4)
-    c.motorista = mot
+    c4= Carro.find_by_id(4)
+    c4.motorista = mot
+    c4.save
 end
-
+ 
 def popula_carteiras
     lista_carteiras = [
         {:numero=> "12345", :categoria => "B", :validade => "2025-12-31"},
@@ -165,7 +168,7 @@ def inicia_ambiente
     inicia_carteiras
     inicia_motoristas
     inicia_multas
-    inicia_carros_multas
+    inicia_carros_multa
     popula_tudo
 
 end
