@@ -16,7 +16,7 @@ def inicia_carros
 end
 
 def inicia_carros_multas
-        ActiveRecord::Base.connection.create_table :carros_multas, id: false do |t|
+        ActiveRecord::Base.connection.create_table :carros_multa, id: false do |t|
             t.references :carro, foreign_key: true
             t.references :multa, foreign_key: true
         end
@@ -32,7 +32,7 @@ def inicia_carteiras
 end
 
 def inicia_motoristas
-        ActiveRecord::Base.connection.create_table :motoristas do |t|
+        ActiveRecord::Base.connection.create_table :motorista do |t|
             t.string :nome
             t.integer :idade
             t.string :sexo
@@ -41,7 +41,7 @@ def inicia_motoristas
 end
 
 def inicia_multas
-        ActiveRecord::Base.connection.create_table :multas do |t|
+        ActiveRecord::Base.connection.create_table :multa do |t|
             t.string :descricao
             t.float :valor
         end
@@ -121,26 +121,26 @@ def popula_multas
     end        
 end
 
-def popula_carros_multas
-    id=1
-    carros = Carro.all
-    m = Multa.find_by_id(id)
-    carros[1].multas << Multa.find_by_id(1)
-    carros[1].multas << Multa.find_by_id(2)
-    carros[2].multas << Multa.find_by_id(2)
-    carros[2].multas << Multa.find_by_id(3)
-    carros[3].multas << Multa.find_by_id(1)
-    carros[3].multas << Multa.find_by_id(2)
-    carros[3].multas << Multa.find_by_id(3)
-    carros[4].multas << Multa.find_by_id(3)
-end
+#def popula_carros_multas
+#    id=1
+#    carros = Carro.all
+#    m = Multa.find_by_id(id)
+#    carros[1].multa << Multa.find_by_id(1)
+#    carros[1].multa << Multa.find_by_id(2)
+#   carros[2].multa << Multa.find_by_id(2)
+#    carros[2].multa << Multa.find_by_id(3)
+#    carros[3].multa << Multa.find_by_id(1)
+#    carros[3].multa << Multa.find_by_id(2)
+#    carros[3].multa << Multa.find_by_id(3)
+#    carros[4].multa << Multa.find_by_id(3)
+#end
 
 def popula_tudo
     popula_motoristas
     popula_carros
     popula_carteiras
     popula_multas
-    popula_carros_multas
+    #popula_carros_multas
 end
 
 
@@ -154,7 +154,7 @@ def inicia_ambiente
     inicia_carteiras
     inicia_motoristas
     inicia_multas
-    inicia_carros_multas
+    #inicia_carros_multas
     popula_tudo
 
 end

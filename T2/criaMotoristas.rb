@@ -7,7 +7,7 @@ ActiveRecord::Base.establish_connection :adapter => "sqlite3",
                                         :database => "Tabelas.sqlite3"
 
 def inicia_motoristas
-    if !ActiveRecord::Base.connection.table_exists?(:motoristas)         
+    if !ActiveRecord::Base.connection.table_exists?(:motorista)
         ActiveRecord::Base.connection.create_table :motorista do |t|
             t.string :nome
             t.integer :idade

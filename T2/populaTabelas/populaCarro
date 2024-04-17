@@ -34,7 +34,6 @@ def popula_carros
     mot = Motorista.find_by_id(3)
     c1= Carro.find_by_id(4)
     c.motorista = mot
-    end
 end
 
 popula_carros
