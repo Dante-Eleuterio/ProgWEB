@@ -30,6 +30,11 @@ def insere_in (tabela, valores)
                 value = c.split(/=/, 2)[1] 
                 carro.ano = value
             end
+            if c.include?("motoristaID=")
+            value = c.split(/=/, 2)[1]
+            mot = Motorista.find_by_id(value)
+            carro.motorista=mot
+    	    end
         end
 
         carro.save
@@ -49,6 +54,11 @@ def insere_in (tabela, valores)
             if c.include?("validade=")
                 value = c.split(/=/, 2)[1] 
                 carteira.validade = value
+            end
+            if c.include?("motoristaID=")
+                value = c.split(/=/, 2)[1]
+                mot = Motorista.find_by_id(value)
+                carteira.motorista=mot
             end
         end
         carteira.save
@@ -76,7 +86,7 @@ def insere_in (tabela, valores)
         end
         motorista.save
     when "MULTA", "MULTAS"
-        multa = Animal.new()
+        multa = Multa.new()
 
         valores.each do |m|
             if m.include?("descricao=")
@@ -107,27 +117,31 @@ def exclui_from (tabela, valor)
         end
         if valor.include?("placa=")
             value = valor.split(/=/, 2)[1] 
-            carro = Carro.where(placa => value)
-            if carro != nil
-                carro.delete
-            end
+            carro = Carro.where(placa: value)
+	        if carro != nil
+                carro.each do |c|
+                	c.delete
+           	    end 
+	        end
         end
         if valor.include?("modelo=")
             value = valor.split(/=/, 2)[1] 
-            carro = Carro.find_by_modelo(value)
-            if carro != nil
-                carro.delete
-            end
+            carro = Carro.where(modelo: value)
+	        if carro != nil
+                carro.each do |c|
+                	c.delete
+                end
+            end 
         end
         if valor.include?("ano=")
             value = valor.split(/=/, 2)[1] 
-            carro = Carro.find_by_ano(value)
-            if carro != nil
-                carro.delete
-            end
-        end
-       
-    end 
+            carro = Carro.where(ano: value)
+	        if carro != nil
+                carro.each do |c|
+                	c.delete
+                end
+           	end 
+        end 
     when "CARTEIRA", "CARTEIRAS"
         if valor.include?("id=")
             value = valor.split(/=/, 2)[1] 
@@ -145,60 +159,87 @@ def exclui_from (tabela, valor)
         end
         if valor.include?("categoria=")
             value = valor.split(/=/, 2)[1] 
-            carteira = Carteira.find_by_categoria(value)
+            carteira = Carteira.where(categoria: value)
             if carteira != nil
-                carteira.delete
+                carteira.each do |c|
+                    carteira.delete
+                end
             end
         end
         if valor.include?("validade=")
             value = valor.split(/=/, 2)[1] 
-            carteira = Carteira.find_by_validade(value)
+            carteira = Carteira.where(validade: value)
             if carteira != nil
-                carteira.delete
+                carteira.each do |c|
+                    carteira.delete
+                end
             end
         end
        
-
     when "MOTORISTA", "MOTORISTAS"
         if valor.include?("id=")
             value = valor.split(/=/, 2)[1] 
             motorista = Motorista.find_by_id(value.to_i)
             car = Carro.all
-        if motorista != nil
-            car.each do |c|
-                aux = c.motorista
-                if c.motorista == motorista.id
-                    c.delete
+       	    if motorista != nil
+                car.each do |c|
+                    aux = c.motorista
+                    if c.motorista == motorista.id
+                        c.delete
+                    end
+                motorista.delete    
             end
-                motorista.delete
-            end
-        end
+	    end
         if valor.include?("nome=")
             value = valor.split(/=/, 2)[1] 
             motorista = Motorista.find_by_nome(value)
-            if motorista != nil
-                motorista.delete
+            car = Carro.all
+       	    if motorista != nil
+                car.each do |c|
+                    aux = c.motorista
+                    if c.motorista == motorista.id
+                        c.delete
+                    end
+                motorista.delete    
             end
         end
         if valor.include?("idade=")
             value = valor.split(/=/, 2)[1] 
             motorista = Motorista.find_by_idade(value)
-            if motorista != nil
-                motorista.delete
+            car = Carro.all
+       	    if motorista != nil
+                car.each do |c|
+                    aux = c.motorista
+                    if c.motorista == motorista.id
+                        c.delete
+                    end
+                motorista.delete    
             end
         end
         if valor.include?("sexo=")
             value = valor.split(/=/, 2)[1] 
             motorista = Motorista.find_by_sexo(value)
-            if motorista != nil
-                motorista.delete
+            car = Carro.all
+       	    if motorista != nil
+                car.each do |c|
+                    aux = c.motorista
+                    if c.motorista == motorista.id
+                        c.delete
+                    end
+                motorista.delete    
             end
         end
         if valor.include?("cpf=")
             value = valor.split(/=/, 2)[1] 
             motorista = Motorista.find_by_cpf(value)
-            if motorista != nil
-                motorista.delete
+            car = Carro.all
+       	    if motorista != nil
+                car.each do |c|
+                    aux = c.motorista
+                    if c.motorista == motorista.id
+                        c.delete
+                    end
+                motorista.delete    
             end
         end
         
@@ -251,7 +292,7 @@ def  lista_from (tabela)
     when "MULTA", "MULTAS"
         multas = Multa.all
         multas.each do |m|
-            puts "..................id:#{m.id}, Descricao #{m.descricao}, Valor: #{m.valor}"
+            puts "..................id:#{m.id}, Descricao: #{m.descricao}, Valor: #{m.valor}"
         end
     else
         puts "Não identifiquei a tabela #{tabela}"
@@ -294,6 +335,7 @@ while continua
             exclui_from(comando_separado[1], comando_separado[2])
         else
             puts "Faltam argumentos"
+	end    
     else
         puts "Não sei o que fazer com #{comando}"
     end

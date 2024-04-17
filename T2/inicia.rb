@@ -58,7 +58,7 @@ def popula_motoristas
         motorista = Motorista.new()
         motorista.nome      = m[:nome]
         motorista.idade     = m[:idade]
-        motorista.sexo      = m[:sexo]
+        motorista.sexo      = m[:cpf]
         motorista.save
     end        
 
