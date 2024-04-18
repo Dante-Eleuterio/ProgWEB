@@ -1,3 +1,4 @@
+#Dante Eleutério dos Santos GRR20206686
 $:.push './'
 require 'rubygems'
 require 'active_record'
@@ -12,13 +13,6 @@ def inicia_carros
             t.string :modelo
             t.string :ano
             t.references :motorista, foreign_key: true
-        end
-end
-
-def inicia_carros_multa
-        ActiveRecord::Base.connection.create_table :carros_multa, id: false do |t|
-            t.references :carro, foreign_key: true
-            t.references :multa, foreign_key: true
         end
 end
 
@@ -47,6 +41,18 @@ def inicia_multas
         end
 end
 
+def inicia_carros_multa
+
+    ActiveRecord::Migration.suppress_messages do
+        ActiveRecord::Migration.create_table :carros_multa, id: false do |t|
+          t.belongs_to :carro
+          t.belongs_to :multa
+        end
+      end
+
+end
+
+
 def popula_motoristas
     lista_motoristas = [
         {:nome=> "João", :idade => 30, :sexo => "Masculino", :cpf => "123.456.789-10"},
@@ -58,7 +64,8 @@ def popula_motoristas
         motorista = Motorista.new()
         motorista.nome      = m[:nome]
         motorista.idade     = m[:idade]
-        motorista.sexo      = m[:cpf]
+        motorista.sexo      = m[:sexo]
+        motorista.cpf      = m[:cpf]
         motorista.save
     end        
 
@@ -135,26 +142,25 @@ def popula_multas
     end        
 end
 
-#def popula_carros_multas
-#    id=1
-#    carros = Carro.all
-#    m = Multa.find_by_id(id)
-#    carros[1].multa << Multa.find_by_id(1)
-#    carros[1].multa << Multa.find_by_id(2)
-#   carros[2].multa << Multa.find_by_id(2)
-#    carros[2].multa << Multa.find_by_id(3)
-#    carros[3].multa << Multa.find_by_id(1)
-#    carros[3].multa << Multa.find_by_id(2)
-#    carros[3].multa << Multa.find_by_id(3)
-#    carros[4].multa << Multa.find_by_id(3)
-#end
+def popula_carros_multas
+   carros = Carro.all
+   multas = Multa.all
+   carros[0].multas << multas[0]
+   carros[0].multas << multas[1]
+   carros[1].multas << multas[1]
+   carros[1].multas << multas[2]
+   carros[2].multas << multas[0]
+   carros[2].multas << multas[1]
+   carros[2].multas << multas[2]
+   carros[3].multas << multas[2]
+end
 
 def popula_tudo
     popula_motoristas
     popula_carros
     popula_carteiras
     popula_multas
-    #popula_carros_multas
+    popula_carros_multas
 end
 
 

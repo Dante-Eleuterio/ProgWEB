@@ -1,0 +1,29 @@
+#Dante Eleutério dos Santos GRR20206686
+
+Trabalho de Ruby ActiveRecord para fazer um banco de dados
+O banco de dados possui as seguintes tabelas
+
+motorista
+carro
+carteira
+multa
+carro_multa
+
+As relações representadas são
+
+1 Motorista -> 1 Carteira
+1 Motorista -> n Carros
+n Carros    -> m Multas
+
+comandos
+
+help    (lista comandos)
+tabelas (lista tabelas)
+q       (finaliza aplicação)
+
+Lista  < tabela >
+Insere < tabela >  < atributo=valor >
+Exclui < tabela >  < atributo=valor >
+Altera < tabela > < id=x > < atributo=valor ... >
+
+RODAR APLICAÇÃO: source start.sh
