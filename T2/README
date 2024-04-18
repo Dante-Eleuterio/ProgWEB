@@ -27,3 +27,6 @@ Exclui < tabela >  < atributo=valor >
 Altera < tabela > < id=x > < atributo=valor ... >
 
 RODAR APLICAÇÃO: source start.sh
+
+DETALHES:
+< atributo=valor > é necessário que o "=" esteja concatenado com a string atributo e a string valor para que haja sucesso.
